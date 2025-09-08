@@ -2,41 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Authentic Sikkim Monastery Design System - Buddhist & Himalayan inspired */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core monastery palette - Authentic Sikkim colors */
+    --background: 42 15% 97%; /* Soft monastery stone */
+    --foreground: 25 25% 15%; /* Deep monastery brown */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Monastery Gold - Primary brand color */
+    --primary: 32 35% 35%; /* Monastery Gold #8b5e34 */
+    --primary-foreground: 42 15% 97%;
+    --primary-glow: 42 65% 65%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Tibetan Red - Sacred color */
+    --tibetan-red: 354 77% 59%; /* #e63946 */
+    --tibetan-red-foreground: 42 15% 97%;
+    --tibetan-red-glow: 354 77% 75%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Himalayan Blue - Peaceful sky */
+    --himalayan-blue: 204 37% 44%; /* #457b9d */
+    --himalayan-blue-foreground: 42 15% 97%;
+    --himalayan-blue-glow: 204 57% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Supporting colors */
+    --card: 42 25% 96%;
+    --card-foreground: 25 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --secondary: 32 45% 85%;
+    --secondary-foreground: 25 35% 25%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 35 20% 90%;
+    --muted-foreground: 25 15% 45%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 354 25% 88%;
+    --accent-foreground: 25 35% 25%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Monastery-inspired gradients */
+    --gradient-monastery: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-sacred: linear-gradient(135deg, hsl(var(--tibetan-red)), hsl(var(--tibetan-red-glow)));
+    --gradient-peaceful: linear-gradient(135deg, hsl(var(--himalayan-blue)), hsl(var(--himalayan-blue-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--tibetan-red)), hsl(var(--himalayan-blue)));
+    
+    /* Sacred shadows with monastery colors */
+    --shadow-monastery: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    --shadow-sacred: 0 0 40px hsl(var(--tibetan-red) / 0.2);
+    --shadow-peaceful: 0 8px 25px -8px hsl(var(--himalayan-blue) / 0.25);
+    --shadow-elevation: 0 20px 60px -15px hsl(var(--primary) / 0.4);
 
-    --radius: 0.5rem;
+    /* Animation & transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 42 15% 97%;
+
+    --border: 35 15% 85%;
+    --input: 35 15% 92%;
+    --ring: 32 35% 35%;
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 

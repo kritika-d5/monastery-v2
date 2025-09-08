@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'playfair': ['Playfair Display', 'serif'],
+        'inter': ['Inter', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -22,6 +26,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -39,24 +44,42 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        // Authentic Sikkim monastery colors
+        'monastery-gold': {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
+        'tibetan-red': {
+          DEFAULT: "hsl(var(--tibetan-red))",
+          foreground: "hsl(var(--tibetan-red-foreground))",
+          glow: "hsl(var(--tibetan-red-glow))",
+        },
+        'himalayan-blue': {
+          DEFAULT: "hsl(var(--himalayan-blue))",
+          foreground: "hsl(var(--himalayan-blue-foreground))",
+          glow: "hsl(var(--himalayan-blue-glow))",
+        },
+      },
+      backgroundImage: {
+        'gradient-monastery': 'var(--gradient-monastery)',
+        'gradient-sacred': 'var(--gradient-sacred)',
+        'gradient-peaceful': 'var(--gradient-peaceful)',
+        'gradient-hero': 'var(--gradient-hero)',
+      },
+      boxShadow: {
+        'monastery': 'var(--shadow-monastery)',
+        'sacred': 'var(--shadow-sacred)',
+        'peaceful': 'var(--shadow-peaceful)',
+        'elevation': 'var(--shadow-elevation)',
+      },
+      transitionTimingFunction: {
+        'smooth': 'var(--transition-smooth)',
+        'spring': 'var(--transition-spring)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -80,10 +103,28 @@ export default {
             height: "0",
           },
         },
+        "float": {
+          "0%, 100%": {
+            transform: "translateY(0px)",
+          },
+          "50%": {
+            transform: "translateY(-10px)",
+          },
+        },
+        "glow": {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.8",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 3s ease-in-out infinite",
+        "glow": "glow 2s ease-in-out infinite",
       },
     },
   },

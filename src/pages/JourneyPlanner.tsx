@@ -1,0 +1,367 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { 
+  MapPin, 
+  Calendar, 
+  Clock, 
+  Users, 
+  Cloud, 
+  Sun, 
+  CloudRain,
+  Mountain,
+  Route,
+  Save,
+  Download,
+  Share
+} from "lucide-react";
+import { useState } from "react";
+import { SikkimMap } from "@/components/SikkimMap";
+import { CulturalCalendar } from "@/components/CulturalCalendar";
+
+const JourneyPlanner = () => {
+  const [selectedTab, setSelectedTab] = useState("planner");
+  const [journeyData, setJourneyData] = useState({
+    travelers: 2,
+    duration: 3,
+    interests: [] as string[],
+    accessibility: "moderate",
+    startDate: ""
+  });
+
+  const weatherData = [
+    { day: "Today", temp: "18°C", condition: "Partly Cloudy", icon: <Cloud className="h-5 w-5" /> },
+    { day: "Tomorrow", temp: "22°C", condition: "Sunny", icon: <Sun className="h-5 w-5" /> },
+    { day: "Thu", temp: "16°C", condition: "Light Rain", icon: <CloudRain className="h-5 w-5" /> },
+    { day: "Fri", temp: "20°C", condition: "Sunny", icon: <Sun className="h-5 w-5" /> },
+    { day: "Sat", temp: "19°C", condition: "Partly Cloudy", icon: <Cloud className="h-5 w-5" /> },
+  ];
+
+  const recommendedItineraries = [
+    {
+      id: 1,
+      title: "Sacred Heritage Circuit",
+      duration: "5 Days",
+      difficulty: "Easy to Moderate",
+      groupType: "Cultural Enthusiasts",
+      highlights: ["Rumtek Monastery", "Enchey Monastery", "Gangtok Sightseeing", "Traditional Markets"],
+      description: "Perfect for those interested in Buddhist culture and easily accessible sites",
+      monasteries: 4,
+      travelTime: "6-8 hours total",
+      bestSeason: "Mar-May, Oct-Dec"
+    },
+    {
+      id: 2,
+      title: "Pilgrimage Trail",
+      duration: "7 Days",
+      difficulty: "Moderate to Challenging",
+      groupType: "Spiritual Seekers",
+      highlights: ["Tashiding Monastery", "Pemayangtse Monastery", "Dubdi Monastery", "Sacred Sites"],
+      description: "Comprehensive spiritual journey covering Sikkim's most sacred locations",
+      monasteries: 6,
+      travelTime: "12-15 hours total",
+      bestSeason: "Apr-Jun, Sep-Nov"
+    },
+    {
+      id: 3,
+      title: "Adventure & Heritage",
+      duration: "4 Days",
+      difficulty: "Moderate",
+      groupType: "Young Travelers",
+      highlights: ["Monastery Visits", "Trekking", "Local Cuisine", "Cultural Activities"],
+      description: "Combines monastery exploration with adventure activities and local experiences",
+      monasteries: 3,
+      travelTime: "8-10 hours total",
+      bestSeason: "Mar-Jun, Sep-Nov"
+    },
+    {
+      id: 4,
+      title: "Gentle Exploration",
+      duration: "3 Days",
+      difficulty: "Easy",
+      groupType: "Senior Travelers",
+      highlights: ["Rumtek Monastery", "Enchey Monastery", "Gangtok Views", "Cultural Shows"],
+      description: "Comfortable exploration with minimal walking and accessible locations",
+      monasteries: 2,
+      travelTime: "4-6 hours total",
+      bestSeason: "Oct-Dec, Mar-May"
+    }
+  ];
+
+  const interests = [
+    "Buddhist Philosophy", "Architecture", "Photography", "Meditation", 
+    "Cultural Events", "Trekking", "Local Cuisine", "Art & Crafts", 
+    "History", "Spirituality", "Nature", "Adventure"
+  ];
+
+  const toggleInterest = (interest: string) => {
+    setJourneyData(prev => ({
+      ...prev,
+      interests: prev.interests.includes(interest)
+        ? prev.interests.filter(i => i !== interest)
+        : [...prev.interests, interest]
+    }));
+  };
+
+  const tabs = [
+    { id: "planner", label: "Journey Planner", icon: <Route className="h-4 w-4" /> },
+    { id: "map", label: "Interactive Map", icon: <MapPin className="h-4 w-4" /> },
+    { id: "calendar", label: "Cultural Calendar", icon: <Calendar className="h-4 w-4" /> }
+  ];
+
+  return (
+    <div className="container mx-auto px-4 py-8 space-y-8">
+      {/* Header */}
+      <div className="text-center space-y-4">
+        <h1 className="text-4xl font-bold font-playfair bg-gradient-monastery bg-clip-text text-transparent">
+          Plan Your Sacred Journey
+        </h1>
+        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          Create personalized itineraries for exploring Sikkim's monasteries with smart recommendations, 
+          weather updates, and cultural insights
+        </p>
+      </div>
+
+      {/* Tab Navigation */}
+      <Card>
+        <CardContent className="p-0">
+          <div className="flex border-b">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedTab(tab.id)}
+                className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
+                  selectedTab === tab.id
+                    ? "border-b-2 border-monastery-gold text-monastery-gold bg-monastery-gold/5"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Tab Content */}
+      {selectedTab === "planner" && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Journey Preferences */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-playfair text-xl">Journey Preferences</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="travelers">Number of Travelers</Label>
+                    <Input
+                      id="travelers"
+                      type="number"
+                      min="1"
+                      max="20"
+                      value={journeyData.travelers}
+                      onChange={(e) => setJourneyData({...journeyData, travelers: parseInt(e.target.value)})}
+                      className="border-monastery-gold/20 focus:border-monastery-gold"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="duration">Duration (Days)</Label>
+                    <Input
+                      id="duration"
+                      type="number"
+                      min="1"
+                      max="14"
+                      value={journeyData.duration}
+                      onChange={(e) => setJourneyData({...journeyData, duration: parseInt(e.target.value)})}
+                      className="border-monastery-gold/20 focus:border-monastery-gold"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="startDate">Start Date</Label>
+                  <Input
+                    id="startDate"
+                    type="date"
+                    value={journeyData.startDate}
+                    onChange={(e) => setJourneyData({...journeyData, startDate: e.target.value})}
+                    className="border-monastery-gold/20 focus:border-monastery-gold"
+                  />
+                </div>
+
+                <div>
+                  <Label>Accessibility Level</Label>
+                  <div className="grid grid-cols-3 gap-2 mt-2">
+                    {["easy", "moderate", "challenging"].map((level) => (
+                      <Button
+                        key={level}
+                        variant={journeyData.accessibility === level ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setJourneyData({...journeyData, accessibility: level})}
+                        className={journeyData.accessibility === level ? "bg-gradient-monastery" : ""}
+                      >
+                        {level.charAt(0).toUpperCase() + level.slice(1)}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Your Interests</Label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {interests.map((interest) => (
+                      <Badge
+                        key={interest}
+                        variant={journeyData.interests.includes(interest) ? "default" : "outline"}
+                        className={`cursor-pointer ${
+                          journeyData.interests.includes(interest) 
+                            ? "bg-monastery-gold hover:bg-monastery-gold/80" 
+                            : "hover:bg-monastery-gold/10"
+                        }`}
+                        onClick={() => toggleInterest(interest)}
+                      >
+                        {interest}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <Button className="w-full bg-gradient-monastery hover:shadow-monastery">
+                  Generate Personalized Itinerary
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Weather Widget */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-playfair text-lg flex items-center gap-2">
+                  <Cloud className="h-5 w-5 text-himalayan-blue" />
+                  Weather Forecast
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {weatherData.map((day, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                      <div className="flex items-center gap-3">
+                        <div className="text-himalayan-blue">{day.icon}</div>
+                        <div>
+                          <p className="font-medium">{day.day}</p>
+                          <p className="text-sm text-muted-foreground">{day.condition}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold">{day.temp}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Recommended Itineraries */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold font-playfair">Recommended Itineraries</h2>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm">
+                  <Save className="h-4 w-4 mr-2" />
+                  Save All
+                </Button>
+                <Button variant="outline" size="sm">
+                  <Share className="h-4 w-4 mr-2" />
+                  Share
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid gap-6">
+              {recommendedItineraries.map((itinerary) => (
+                <Card key={itinerary.id} className="hover:shadow-monastery transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h3 className="text-xl font-semibold font-playfair text-monastery-gold">
+                          {itinerary.title}
+                        </h3>
+                        <p className="text-muted-foreground">{itinerary.description}</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Badge variant="secondary">{itinerary.duration}</Badge>
+                        <Badge className="bg-gradient-monastery text-white">{itinerary.difficulty}</Badge>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Users className="h-4 w-4 text-monastery-gold" />
+                        <span>{itinerary.groupType}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Mountain className="h-4 w-4 text-himalayan-blue" />
+                        <span>{itinerary.monasteries} Monasteries</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-4 w-4 text-tibetan-red" />
+                        <span>{itinerary.travelTime}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4 text-green-600" />
+                        <span>{itinerary.bestSeason}</span>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <h4 className="font-medium mb-2">Highlights:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {itinerary.highlights.map((highlight, index) => (
+                          <Badge key={index} variant="outline">
+                            {highlight}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Button className="flex-1 bg-gradient-monastery hover:shadow-monastery">
+                        Select This Itinerary
+                      </Button>
+                      <Button variant="outline">
+                        <Download className="h-4 w-4" />
+                      </Button>
+                      <Button variant="outline">
+                        <Save className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedTab === "map" && (
+        <div className="space-y-6">
+          <SikkimMap />
+        </div>
+      )}
+
+      {selectedTab === "calendar" && (
+        <div className="space-y-6">
+          <CulturalCalendar />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default JourneyPlanner;
