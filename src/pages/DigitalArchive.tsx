@@ -18,6 +18,9 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import digitalArchiveImage from "@/assets/digital-archive.jpg";
+import manuscript1 from "@/assets/manuscript-1.jpg";
+import mural1 from "@/assets/mural-1.jpg";
+import rumtekImage from "@/assets/rumtek-monastery.jpg";
 
 const DigitalArchive = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -274,8 +277,15 @@ const DigitalArchive = () => {
         {filteredItems.map((item) => (
           <Card key={item.id} className="group hover:shadow-monastery transition-all duration-300 overflow-hidden">
             {/* Thumbnail */}
-            <div className="relative h-48 bg-gradient-to-br from-monastery-gold/10 via-tibetan-red/10 to-himalayan-blue/10 flex items-center justify-center">
-              {getCategoryIcon(item.category)}
+            <div className="relative h-48 overflow-hidden rounded-t-lg">
+              <img 
+                src={item.category === 'manuscripts' ? manuscript1 : 
+                     item.category === 'murals' ? mural1 : 
+                     rumtekImage} 
+                alt={item.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               <div className="absolute top-3 right-3">
                 <Badge className={getConditionColor(item.condition)}>
                   {item.condition}

@@ -15,6 +15,9 @@ import {
   Filter
 } from "lucide-react";
 import { useState } from "react";
+import rumtekImage from "@/assets/rumtek-monastery.jpg";
+import pemayangtseImage from "@/assets/pemayangtse-monastery.jpg";
+import tashidingImage from "@/assets/tashiding-monastery.jpg";
 
 const ExploreVirtual = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,7 +37,7 @@ const ExploreVirtual = () => {
       reviews: 1247,
       languages: ["English", "Hindi", "Nepali", "Tibetan"],
       features: ["360° Views", "Audio Guide", "Historical Timeline", "Interactive Hotspots"],
-      thumbnail: "/monastery-thumbnails/rumtek.jpg",
+      thumbnail: rumtekImage,
       isNew: false,
       isPopular: true
     },
@@ -51,7 +54,7 @@ const ExploreVirtual = () => {
       reviews: 892,
       languages: ["English", "Hindi", "Nepali"],
       features: ["360° Views", "Sacred Sculptures", "Mountain Views", "Prayer Wheels"],
-      thumbnail: "/monastery-thumbnails/pemayangtse.jpg",
+      thumbnail: pemayangtseImage,
       isNew: false,
       isPopular: true
     },
@@ -68,7 +71,7 @@ const ExploreVirtual = () => {
       reviews: 567,
       languages: ["English", "Nepali", "Tibetan"],
       features: ["360° Views", "Sacred Chorten", "Pilgrimage Path", "Ritual Ceremonies"],
-      thumbnail: "/monastery-thumbnails/tashiding.jpg",
+      thumbnail: tashidingImage,
       isNew: true,
       isPopular: false
     },
@@ -85,7 +88,7 @@ const ExploreVirtual = () => {
       reviews: 734,
       languages: ["English", "Hindi", "Nepali"],
       features: ["360° Views", "City Views", "Traditional Architecture", "Monk Quarters"],
-      thumbnail: "/monastery-thumbnails/enchey.jpg",
+      thumbnail: rumtekImage,
       isNew: false,
       isPopular: false
     },
@@ -102,7 +105,7 @@ const ExploreVirtual = () => {
       reviews: 423,
       languages: ["English", "Nepali"],
       features: ["360° Views", "Historical Artifacts", "Forest Setting", "Ancient Murals"],
-      thumbnail: "/monastery-thumbnails/dubdi.jpg",
+      thumbnail: pemayangtseImage,
       isNew: true,
       isPopular: false
     },
@@ -119,7 +122,7 @@ const ExploreVirtual = () => {
       reviews: 289,
       languages: ["English", "Hindi", "Nepali"],
       features: ["360° Views", "Dance Performances", "Prayer Halls", "Monastery Gardens"],
-      thumbnail: "/monastery-thumbnails/ralang.jpg",
+      thumbnail: tashidingImage,
       isNew: false,
       isPopular: false
     }
@@ -194,10 +197,12 @@ const ExploreVirtual = () => {
           <Card key={tour.id} className="group hover:shadow-monastery transition-all duration-300 overflow-hidden">
             {/* Thumbnail */}
             <div className="relative h-48 bg-gradient-peaceful overflow-hidden">
-              {/* Placeholder for monastery image */}
-              <div className="w-full h-full bg-gradient-to-br from-monastery-gold/20 via-tibetan-red/20 to-himalayan-blue/20 flex items-center justify-center">
-                <Camera className="h-16 w-16 text-monastery-gold/60" />
-              </div>
+              <img 
+                src={tour.thumbnail} 
+                alt={tour.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               
               {/* Overlay badges */}
               <div className="absolute top-3 left-3 flex gap-2">

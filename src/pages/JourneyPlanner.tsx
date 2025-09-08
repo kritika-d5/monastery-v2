@@ -19,7 +19,7 @@ import {
   Share
 } from "lucide-react";
 import { useState } from "react";
-import { SikkimMap } from "@/components/SikkimMap";
+import { InteractiveSikkimMap } from "@/components/InteractiveSikkimMap";
 import { CulturalCalendar } from "@/components/CulturalCalendar";
 
 const JourneyPlanner = () => {
@@ -351,7 +351,7 @@ const JourneyPlanner = () => {
 
       {selectedTab === "map" && (
         <div className="space-y-6">
-          <SikkimMap />
+          <InteractiveSikkimMap />
         </div>
       )}
 

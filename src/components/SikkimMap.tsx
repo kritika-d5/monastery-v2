@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Users, Camera } from "lucide-react";
-import sikkimMapImage from "@/assets/sikkim-map.jpg";
+import sikkimMapImage from "@/assets/sikkim-topographic-map.jpg";
 
 export const SikkimMap = () => {
   const monasteries = [
