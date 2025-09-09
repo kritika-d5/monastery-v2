@@ -14,16 +14,330 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      archive_items: {
+        Row: {
+          audio_url: string | null
+          created_at: string
+          description: string | null
+          downloadable_url: string | null
+          era: string | null
+          has_audio_narration: boolean | null
+          id: string
+          images: string[] | null
+          language: string | null
+          monastery_id: string | null
+          source_file_url: string | null
+          specs: string | null
+          title: string
+          translated_text: string | null
+          type: Database["public"]["Enums"]["archive_item_type"]
+          updated_at: string
+        }
+        Insert: {
+          audio_url?: string | null
+          created_at?: string
+          description?: string | null
+          downloadable_url?: string | null
+          era?: string | null
+          has_audio_narration?: boolean | null
+          id?: string
+          images?: string[] | null
+          language?: string | null
+          monastery_id?: string | null
+          source_file_url?: string | null
+          specs?: string | null
+          title: string
+          translated_text?: string | null
+          type: Database["public"]["Enums"]["archive_item_type"]
+          updated_at?: string
+        }
+        Update: {
+          audio_url?: string | null
+          created_at?: string
+          description?: string | null
+          downloadable_url?: string | null
+          era?: string | null
+          has_audio_narration?: boolean | null
+          id?: string
+          images?: string[] | null
+          language?: string | null
+          monastery_id?: string | null
+          source_file_url?: string | null
+          specs?: string | null
+          title?: string
+          translated_text?: string | null
+          type?: Database["public"]["Enums"]["archive_item_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "archive_items_monastery_id_fkey"
+            columns: ["monastery_id"]
+            isOneToOne: false
+            referencedRelation: "monasteries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      itineraries: {
+        Row: {
+          created_at: string
+          days_json: Json | null
+          id: string
+          map_route_geojson: Json | null
+          params_json: Json | null
+          profile_id: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          days_json?: Json | null
+          id?: string
+          map_route_geojson?: Json | null
+          params_json?: Json | null
+          profile_id: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          days_json?: Json | null
+          id?: string
+          map_route_geojson?: Json | null
+          params_json?: Json | null
+          profile_id?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "itineraries_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      monasteries: {
+        Row: {
+          accessibility: boolean | null
+          cover_image: string | null
+          created_at: string
+          description: string | null
+          difficulty: Database["public"]["Enums"]["difficulty_level"]
+          gallery: string[] | null
+          history: string | null
+          id: string
+          lat: number | null
+          lng: number | null
+          name: string
+          open_hours: string | null
+          region: string
+          rituals_text: string | null
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          accessibility?: boolean | null
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty_level"]
+          gallery?: string[] | null
+          history?: string | null
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          name: string
+          open_hours?: string | null
+          region: string
+          rituals_text?: string | null
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          accessibility?: boolean | null
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty_level"]
+          gallery?: string[] | null
+          history?: string | null
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          name?: string
+          open_hours?: string | null
+          region?: string
+          rituals_text?: string | null
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          age: number
+          city: string
+          country: string
+          created_at: string
+          full_name: string
+          id: string
+          language_pref: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age: number
+          city: string
+          country: string
+          created_at?: string
+          full_name: string
+          id?: string
+          language_pref?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age?: number
+          city?: string
+          country?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          language_pref?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          created_at: string
+          id: string
+          images: string[] | null
+          monastery_id: string
+          profile_id: string
+          rating: number
+          text: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          images?: string[] | null
+          monastery_id: string
+          profile_id: string
+          rating: number
+          text?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          images?: string[] | null
+          monastery_id?: string
+          profile_id?: string
+          rating?: number
+          text?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_monastery_id_fkey"
+            columns: ["monastery_id"]
+            isOneToOne: false
+            referencedRelation: "monasteries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tours: {
+        Row: {
+          audio_guides: Json | null
+          created_at: string
+          has_360: boolean | null
+          hotspots: Json | null
+          id: string
+          monastery_id: string
+          updated_at: string
+        }
+        Insert: {
+          audio_guides?: Json | null
+          created_at?: string
+          has_360?: boolean | null
+          hotspots?: Json | null
+          id?: string
+          monastery_id: string
+          updated_at?: string
+        }
+        Update: {
+          audio_guides?: Json | null
+          created_at?: string
+          has_360?: boolean | null
+          hotspots?: Json | null
+          id?: string
+          monastery_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tours_monastery_id_fkey"
+            columns: ["monastery_id"]
+            isOneToOne: false
+            referencedRelation: "monasteries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
+      archive_item_type: "manuscript" | "mural" | "artifact"
+      difficulty_level: "easy" | "medium" | "trek"
+      group_type: "young" | "family" | "elderly"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +464,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+      archive_item_type: ["manuscript", "mural", "artifact"],
+      difficulty_level: ["easy", "medium", "trek"],
+      group_type: ["young", "family", "elderly"],
+    },
   },
 } as const
