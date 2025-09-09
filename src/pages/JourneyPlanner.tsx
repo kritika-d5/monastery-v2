@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,20 +6,27 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Database } from "@/types/database.types";
 type Itinerary = Database["public"]["Tables"]["itineraries"]["Row"];
+type TravelAgent = Database["public"]["Tables"]["travel_agents"]["Row"];
 
-import { 
-  MapPin, 
-  Calendar, 
-  Clock, 
-  Users, 
-  Cloud, 
-  Sun, 
+import {
+  MapPin,
+  Calendar,
+  Clock,
+  Users,
+  Cloud,
+  Sun,
   CloudRain,
   Mountain,
   Route,
   Save,
   Download,
-  Share
+  Share,
+  Briefcase,
+  ExternalLink,
+  Phone,
+  Mail,
+  CheckCircle,
+  XCircle
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { InteractiveSikkimMap } from "@/components/InteractiveSikkimMap";
@@ -39,6 +45,7 @@ const JourneyPlanner = () => {
   });
 
   const [recommendedItineraries, setRecommendedItineraries] = useState<any[]>([]);
+  const [travelAgents, setTravelAgents] = useState<TravelAgent[]>([]);
   const [user, setUser] = useState<any>(null);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [pendingItinerary, setPendingItinerary] = useState<string | null>(null);
@@ -89,8 +96,22 @@ const JourneyPlanner = () => {
         setRecommendedItineraries(mapped);
       }
     };
+    
+    const fetchTravelAgents = async () => {
+      const { data, error } = await supabase
+        .from("travel_agents")
+        .select("*")
+        .order("name", { ascending: true });
+
+      if (error) {
+        console.error("Error fetching travel agents:", error.message);
+      } else {
+        setTravelAgents(data);
+      }
+    };
 
     fetchItineraries();
+    fetchTravelAgents();
   }, []);
 
   const addToBucketlist = async (itineraryId: string) => {
@@ -109,7 +130,7 @@ const JourneyPlanner = () => {
 
   if (profileError || !profileData) {
     console.error("Error fetching profile:", profileError);
-    alert("Could not fetch your profile. Please try again.");
+    console.log("Could not fetch your profile. Please try again.");
     return;
   }
 
@@ -123,12 +144,12 @@ const JourneyPlanner = () => {
   if (error) {
     console.error("Error adding to bucketlist:", error);
     if (error.code === "23505") {
-      alert("This itinerary is already in your bucketlist.");
+      console.log("This itinerary is already in your bucketlist.");
     } else {
-      alert("Could not add itinerary. Please try again.");
+      console.log("Could not add itinerary. Please try again.");
     }
   } else {
-    alert("Itinerary added to your bucketlist!");
+    console.log("Itinerary added to your bucketlist!");
   }
 };
 
@@ -139,9 +160,19 @@ const JourneyPlanner = () => {
 
   const tabs = [
     { id: "planner", label: "Journey Planner", icon: <Route className="h-4 w-4" /> },
+    { id: "agents", label: "Travel Agents", icon: <Briefcase className="h-4 w-4" /> },
     { id: "map", label: "Interactive Map", icon: <MapPin className="h-4 w-4" /> },
     { id: "calendar", label: "Cultural Calendar", icon: <Calendar className="h-4 w-4" /> }
   ];
+
+  const toggleInterest = (interest: string) => {
+    setJourneyData(prevData => ({
+      ...prevData,
+      interests: prevData.interests.includes(interest)
+        ? prevData.interests.filter(i => i !== interest)
+        : [...prevData.interests, interest]
+    }));
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
@@ -247,8 +278,8 @@ const JourneyPlanner = () => {
                         key={interest}
                         variant={journeyData.interests.includes(interest) ? "default" : "outline"}
                         className={`cursor-pointer ${
-                          journeyData.interests.includes(interest) 
-                            ? "bg-monastery-gold hover:bg-monastery-gold/80" 
+                          journeyData.interests.includes(interest)
+                            ? "bg-monastery-gold hover:bg-monastery-gold/80"
                             : "hover:bg-monastery-gold/10"
                         }`}
                         onClick={() => toggleInterest(interest)}
@@ -374,6 +405,72 @@ const JourneyPlanner = () => {
         </div>
       )}
 
+      {selectedTab === "agents" && (
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold font-playfair mb-4">Recommended Travel Agents</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {travelAgents.map((agent) => (
+              <Card key={agent.id} className="flex flex-col">
+                <CardHeader>
+                  <CardTitle className="font-playfair text-xl flex items-center gap-2">
+                    {agent.name}
+                    {agent.grade && <Badge variant="secondary">{agent.grade}</Badge>}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex-1 space-y-4 text-sm">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-monastery-gold" />
+                      <span>{agent.address}</span>
+                    </div>
+                    {agent.phone && (
+                      <div className="flex items-center gap-2">
+                        <Phone className="h-4 w-4 text-monastery-gold" />
+                        <a href={`tel:${agent.phone}`} className="hover:underline">{agent.phone}</a>
+                      </div>
+                    )}
+                    {agent.email && (
+                      <div className="flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-monastery-gold" />
+                        <a href={`mailto:${agent.email}`} className="hover:underline">{agent.email}</a>
+                      </div>
+                    )}
+                  </div>
+                  {agent.services && (
+                    <div className="space-y-1">
+                      <p className="font-semibold">Services:</p>
+                      <p className="text-muted-foreground">{agent.services}</p>
+                    </div>
+                  )}
+                  {agent.health_safety_compliant !== null && (
+                    <div className="flex items-center gap-2">
+                      {agent.health_safety_compliant ? (
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                      ) : (
+                        <XCircle className="h-4 w-4 text-red-600" />
+                      )}
+                      <p className="font-medium">Health & Safety Compliant</p>
+                    </div>
+                  )}
+                </CardContent>
+                <div className="p-6 pt-0">
+                  {agent.booking_link && (
+                    <a href={agent.booking_link} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        className="w-full bg-gradient-monastery hover:shadow-monastery"
+                      >
+                        Book Now
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </Button>
+                    </a>
+                  )}
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
       {selectedTab === "map" && (
         <div className="space-y-6">
           <InteractiveSikkimMap />
@@ -409,4 +506,3 @@ const JourneyPlanner = () => {
 };
 
 export default JourneyPlanner;
-
