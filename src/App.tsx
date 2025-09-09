@@ -21,6 +21,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import RumtekMonasteryPage from "./pages/monasteries/Rumtek";
 import AboutSikkim from "./pages/AboutSikkim";
 import CommunityPage from "./pages/Community"; // Add this line
+import ManuscriptDetail from "./pages/ManuscriptDetail";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
               <Route path="/virtual-tours/rumtek" element={<RumtekMonasteryPage />} />
               <Route path="/journey-planner" element={<JourneyPlanner />} />
               <Route path="/digital-archive" element={<DigitalArchive />} />
+              <Route path="/digital-archive/:manuscriptId" element={<ManuscriptDetail />} />
               <Route path="/about-sikkim" element={<AboutSikkim />} />
               <Route path="/community" element={<CommunityPage />} /> {/* Add this line */}
               <Route path="/admin" element={<AdminDashboard />} />

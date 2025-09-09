@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { LanguageDropdown } from "@/components/LanguageDropdown";
+import { NearbyServicesMap } from "@/components/NearbyServicesMap";
 import { 
   Globe, 
   MapPin, 
@@ -275,9 +276,8 @@ const RumtekMonasteryPage = () => {
               <Hotel className="h-4 w-4 mr-2" /> Washrooms
             </Button>
           </div>
-          <div className="w-full h-80 bg-gray-200 rounded-md flex items-center justify-center">
-            <p className="text-muted-foreground">Interactive Map Coming Soon</p>
-          </div>
+          {/* Replace the placeholder div with the new map component */}
+          <NearbyServicesMap filter={activeMapFilter} />
         </CardContent>
       </Card>
     </div>
