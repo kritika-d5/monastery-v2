@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 
 // WARNING: Hardcoding API keys is highly insecure and not recommended for production.
-const GROQ_API_KEY = "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";
+const GROQ_API_KEY = "ABC";
 
 const TravelCompanion = () => {
   const [messages, setMessages] = useState([
