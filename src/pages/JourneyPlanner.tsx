@@ -183,7 +183,84 @@ const JourneyPlanner = () => {
                 <CardTitle className="font-playfair text-xl">Journey Preferences</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Form inputs remain unchanged */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="travelers">Number of Travelers</Label>
+                    <Input
+                      id="travelers"
+                      type="number"
+                      min="1"
+                      max="20"
+                      value={journeyData.travelers}
+                      onChange={(e) => setJourneyData({...journeyData, travelers: parseInt(e.target.value)})}
+                      className="border-monastery-gold/20 focus:border-monastery-gold"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="duration">Duration (Days)</Label>
+                    <Input
+                      id="duration"
+                      type="number"
+                      min="1"
+                      max="14"
+                      value={journeyData.duration}
+                      onChange={(e) => setJourneyData({...journeyData, duration: parseInt(e.target.value)})}
+                      className="border-monastery-gold/20 focus:border-monastery-gold"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="startDate">Start Date</Label>
+                  <Input
+                    id="startDate"
+                    type="date"
+                    value={journeyData.startDate}
+                    onChange={(e) => setJourneyData({...journeyData, startDate: e.target.value})}
+                    className="border-monastery-gold/20 focus:border-monastery-gold"
+                  />
+                </div>
+
+                <div>
+                  <Label>Accessibility Level</Label>
+                  <div className="grid grid-cols-3 gap-2 mt-2">
+                    {["easy", "moderate", "challenging"].map((level) => (
+                      <Button
+                        key={level}
+                        variant={journeyData.accessibility === level ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setJourneyData({...journeyData, accessibility: level})}
+                        className={journeyData.accessibility === level ? "bg-gradient-monastery" : ""}
+                      >
+                        {level.charAt(0).toUpperCase() + level.slice(1)}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Your Interests</Label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {interests.map((interest) => (
+                      <Badge
+                        key={interest}
+                        variant={journeyData.interests.includes(interest) ? "default" : "outline"}
+                        className={`cursor-pointer ${
+                          journeyData.interests.includes(interest) 
+                            ? "bg-monastery-gold hover:bg-monastery-gold/80" 
+                            : "hover:bg-monastery-gold/10"
+                        }`}
+                        onClick={() => toggleInterest(interest)}
+                      >
+                        {interest}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <Button className="w-full bg-gradient-monastery hover:shadow-monastery">
+                  Generate Personalized Itinerary
+                </Button>
               </CardContent>
             </Card>
 

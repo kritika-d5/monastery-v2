@@ -20,7 +20,7 @@ import {
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
-import { useToast } from "@/hooks/use-toast"; // Import the useToast hook
+import { useToast } from "@/hooks/use-toast";
 import digitalArchiveImage from "@/assets/digital-archive.jpg";
 import manuscript1 from "@/assets/manuscript-1.jpg";
 import mural1 from "@/assets/mural-1.jpg";
@@ -37,7 +37,7 @@ const DigitalArchive = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedEra, setSelectedEra] = useState("all");
-  const { toast } = useToast(); // Initialize the toast hook
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchArchiveItems = async () => {
@@ -61,7 +61,6 @@ const DigitalArchive = () => {
     fetchArchiveItems();
   }, []);
 
-  // Handler for the download button
   const handleDownload = (downloadUrl: string | null) => {
     if (downloadUrl) {
       window.open(downloadUrl, '_blank');
@@ -74,7 +73,6 @@ const DigitalArchive = () => {
     }
   };
 
-  // Handler for the share button
   const handleShare = (itemTitle: string, itemId: string) => {
     const shareUrl = `${window.location.origin}/digital-archive/${itemId}`;
     const shareData = {
@@ -86,7 +84,6 @@ const DigitalArchive = () => {
     if (navigator.share) {
       navigator.share(shareData).catch((error) => console.error('Error sharing:', error));
     } else {
-      // Fallback for browsers that don't support the Web Share API
       navigator.clipboard.writeText(shareUrl);
       toast({
         title: "Link Copied!",
@@ -109,10 +106,12 @@ const DigitalArchive = () => {
     { id: "19th Century", label: "19th Century" },
   ];
 
+  // Updated filter logic to include tags
   const filteredItems = archiveItems.filter(item => {
-    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                         (item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())));
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    const matchesSearch = item.title.toLowerCase().includes(lowerCaseQuery) ||
+                         (item.description && item.description.toLowerCase().includes(lowerCaseQuery)) ||
+                         (item.tags && item.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery)));
     const matchesCategory = selectedCategory === "all" || item.type === selectedCategory;
     const matchesEra = selectedEra === "all" || item.era === selectedEra;
     
@@ -130,7 +129,7 @@ const DigitalArchive = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
-      {/* Header and Filter sections remain unchanged */}
+      {/* Header and other sections remain the same */}
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold font-playfair bg-gradient-monastery bg-clip-text text-transparent">Digital Heritage Archive</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Preserve and explore Sikkim's Buddhist heritage through our comprehensive digital collection.</p>
@@ -140,7 +139,7 @@ const DigitalArchive = () => {
         <CardContent className="p-6 space-y-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input type="text" placeholder="Search manuscripts, artifacts, or topics..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10" />
+            <Input type="text" placeholder="Search by title, description, or tag..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10" />
           </div>
           <div className="flex flex-wrap gap-2 items-center">
             <span className="text-sm font-medium text-muted-foreground">Categories:</span>
@@ -152,8 +151,7 @@ const DigitalArchive = () => {
           </div>
         </CardContent>
       </Card>
-      
-      {/* Archive Items Grid */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading ? (
           Array.from({ length: 6 }).map((_, index) => (
@@ -161,38 +159,55 @@ const DigitalArchive = () => {
           ))
         ) : (
           filteredItems.map((item) => (
-            <Card key={item.id} className="group hover:shadow-monastery transition-all duration-300 overflow-hidden">
-              {/* Card content remains the same until the action buttons */}
-              <div className="relative h-48 overflow-hidden rounded-t-lg"><img src={item.images && item.images.length > 0 ? item.images[0] : manuscript1} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" /><div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />{item.condition && <div className="absolute top-3 right-3"><Badge className={getConditionColor(item.condition)}>{item.condition}</Badge></div>}</div>
-              <CardHeader><div className="flex items-start justify-between"><div><CardTitle className="font-playfair text-lg group-hover:text-monastery-gold transition-colors line-clamp-2">{item.title}</CardTitle><p className="text-sm text-muted-foreground">{item.type.toUpperCase()}</p></div>{item.is_hd_available && <Badge variant="secondary" className="text-xs">HD Available</Badge>}</div></CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground line-clamp-3">{item.description}</p>
-                <div className="space-y-2 text-sm">{item.monasteries && <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-monastery-gold" /><span>{item.monasteries.name}</span></div>}{item.period && <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-himalayan-blue" /><span>{item.period}</span></div>}{item.language && <div className="flex items-center gap-2"><BookOpen className="h-4 w-4 text-tibetan-red" /><span>{item.language}</span></div>}</div>
-                <div className="space-y-2"><div className="flex justify-between text-xs text-muted-foreground">{item.images && <span>{item.images.length} Images</span>}{item.pages && <span>{item.pages} Pages</span>}{item.download_count && <span>{item.download_count} Downloads</span>}</div><div className="w-full bg-muted rounded-full h-1"><div className="bg-gradient-monastery h-1 rounded-full" style={{ width: `${Math.min(((item.download_count || 0) / 600) * 100, 100)}%` }} /></div></div>
-                {item.tags && item.tags.length > 0 && (<div><p className="text-xs font-medium text-muted-foreground mb-2">Tags</p><div className="flex flex-wrap gap-1">{item.tags.slice(0, 3).map((tag, index) => <Badge key={index} variant="outline" className="text-xs">{tag}</Badge>)}{item.tags.length > 3 && <Badge variant="outline" className="text-xs">+{item.tags.length - 3}</Badge>}</div></div>)}
-                
-                {/* Updated Action Buttons */}
-                <div className="flex gap-1 pt-2">
-                  <Button asChild size="sm" className="flex-1 bg-gradient-monastery hover:shadow-monastery">
-                    <Link to={`/digital-archive/${item.id}`}>
-                      <Eye className="h-3 w-3 mr-1" />
-                      View
-                    </Link>
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={() => handleDownload(item.downloadable_url)} disabled={!item.downloadable_url}>
-                    <Download className="h-3 w-3" />
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={() => handleShare(item.title, item.id)}>
-                    <Share2 className="h-3 w-3" />
-                  </Button>
+            <Card key={item.id} className="group hover:shadow-monastery transition-all duration-300 overflow-hidden flex flex-col">
+              <div className="relative h-48 overflow-hidden rounded-t-lg">
+                <img src={item.images && item.images.length > 0 ? item.images[0] : manuscript1} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                {item.condition && <div className="absolute top-3 right-3"><Badge className={getConditionColor(item.condition)}>{item.condition}</Badge></div>}
+              </div>
+
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="font-playfair text-lg group-hover:text-monastery-gold transition-colors line-clamp-2">{item.title}</CardTitle>
+                    <p className="text-sm text-muted-foreground">{item.type.toUpperCase()}</p>
+                  </div>
+                  {item.is_hd_available && <Badge variant="secondary" className="text-xs">HD Available</Badge>}
                 </div>
+              </CardHeader>
+
+              <CardContent className="space-y-4 flex-grow flex flex-col">
+                <p className="text-sm text-muted-foreground line-clamp-3">{item.description}</p>
+                <div className="space-y-2 text-sm">
+                  {item.monasteries && <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-monastery-gold" /><span>{item.monasteries.name}</span></div>}
+                  {item.period && <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-himalayan-blue" /><span>{item.period}</span></div>}
+                  {item.language && <div className="flex items-center gap-2"><BookOpen className="h-4 w-4 text-tibetan-red" /><span>{item.language}</span></div>}
+                </div>
+                
+                {/* New Tags Section */}
+                {item.tags && item.tags.length > 0 && (
+                  <div className="mt-auto pt-4">
+                    <p className="text-xs font-medium text-muted-foreground mb-2">Tags</p>
+                    <div className="flex flex-wrap gap-1">
+                      {item.tags.slice(0, 3).map((tag, index) => <Badge key={index} variant="outline" className="text-xs">{tag}</Badge>)}
+                      {item.tags.length > 3 && <Badge variant="outline" className="text-xs">+{item.tags.length - 3}</Badge>}
+                    </div>
+                  </div>
+                )}
+                
               </CardContent>
+              <div className="p-6 pt-0 mt-4">
+                 <div className="flex gap-1">
+                  <Button asChild size="sm" className="flex-1 bg-gradient-monastery hover:shadow-monastery"><Link to={`/digital-archive/${item.id}`}><Eye className="h-3 w-3 mr-1" />View</Link></Button>
+                  <Button variant="outline" size="sm" onClick={() => handleDownload(item.downloadable_url)} disabled={!item.downloadable_url}><Download className="h-3 w-3" /></Button>
+                  <Button variant="outline" size="sm" onClick={() => handleShare(item.title, item.id)}><Share2 className="h-3 w-3" /></Button>
+                </div>
+              </div>
             </Card>
           ))
         )}
       </div>
       
-      {/* Other components remain unchanged */}
     </div>
   );
 };
