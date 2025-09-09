@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -220,10 +221,12 @@ const ExploreVirtual = () => {
               
               {/* Play button overlay */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-                <Button size="lg" className="bg-white text-monastery-gold hover:bg-white/90">
-                  <Play className="h-6 w-6 mr-2" />
-                  Start Tour
-                </Button>
+                <Link to={tour.id === 1 ? "/virtual-tours/rumtek" : "#"}>
+                  <Button size="lg" className="bg-white text-monastery-gold hover:bg-white/90">
+                    <Play className="h-6 w-6 mr-2" />
+                    Start Tour
+                  </Button>
+                </Link>
               </div>
             </div>
 

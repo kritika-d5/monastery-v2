@@ -1,3 +1,5 @@
+// src/App.tsx
+
 import React from 'react';
 import './lib/i18n';
 import { Toaster } from "@/components/ui/toaster";
@@ -16,6 +18,9 @@ import ExploreVirtual from "./pages/ExploreVirtual";
 import JourneyPlanner from "./pages/JourneyPlanner";
 import DigitalArchive from "./pages/DigitalArchive";
 import AdminDashboard from "./pages/AdminDashboard";
+import RumtekMonasteryPage from "./pages/monasteries/Rumtek";
+import AboutSikkim from "./pages/AboutSikkim";
+import CommunityPage from "./pages/Community"; // Add this line
 
 const queryClient = new QueryClient();
 
@@ -34,8 +39,11 @@ const App = () => (
               <Route path="/auth/sign-in" element={<SignIn />} />
               <Route path="/auth/forgot-password" element={<ForgotPassword />} />
               <Route path="/virtual-tours" element={<ExploreVirtual />} />
+              <Route path="/virtual-tours/rumtek" element={<RumtekMonasteryPage />} />
               <Route path="/journey-planner" element={<JourneyPlanner />} />
               <Route path="/digital-archive" element={<DigitalArchive />} />
+              <Route path="/about-sikkim" element={<AboutSikkim />} />
+              <Route path="/community" element={<CommunityPage />} /> {/* Add this line */}
               <Route path="/admin" element={<AdminDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
