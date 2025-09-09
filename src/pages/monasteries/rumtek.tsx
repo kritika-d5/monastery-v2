@@ -20,7 +20,10 @@ import {
   HeartPulse,
   Siren,
   ThumbsUp,
-  ThumbsDown
+  ThumbsDown,
+  Camera,
+  ParkingSquare, 
+  PersonStanding 
 } from "lucide-react";
 import rumtekImage from "@/assets/rumtek-monastery.jpg";
 
@@ -120,6 +123,39 @@ const RumtekMonasteryPage = () => {
                 main temple is a four-story building adorned with traditional 
                 murals, thangkas, and statues.
               </p>
+            </CardContent>
+          </Card>
+          
+          {/* Gallery Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Camera className="h-6 w-6 text-monastery-gold" />
+                Explore Rumtek Monastery Gallery
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Discover the beauty, culture, and unique charm of this destination through our curated collection of images. From iconic landmarks to hidden gems, each photograph highlights the essence and atmosphere that make this place truly special.
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="group relative">
+                  <img src="https://th.bing.com/th/id/R.270f07b7f38f4cfc548481185db5c3d2?rik=51wLN48AOvJWqQ&riu=http%3a%2f%2fwww.sikkimtourismindia.com%2fblog%2fwp-content%2fuploads%2f2018%2f12%2fRumtek-Monastery1.jpg&ehk=DNfl8M2hRF3kuzO84IxeOjPQrelIge99IK%2f%2bgcJbdno%3d&risl=&pid=ImgRaw&r=0" alt="Rumtek Monastery main building" className="rounded-lg w-full h-40 object-cover cursor-pointer transition-transform transform group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+                <div className="group relative">
+                  <img src="https://tse3.mm.bing.net/th/id/OIP.JU_2qFt9_zecZlWQxSjr6gHaFj?cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Rumtek Monastery courtyard view" className="rounded-lg w-full h-40 object-cover cursor-pointer transition-transform transform group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+                <div className="group relative">
+                  <img src="https://thf.bing.com/th/id/OIP.4HZNnql8ooIDAL_6GCIyRwHaEK?o=7&cb=thfc1rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Golden Stupa inside Rumtek Monastery" className="rounded-lg w-full h-40 object-cover cursor-pointer transition-transform transform group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+                <div className="group relative">
+                  <img src="https://images.squarespace-cdn.com/content/v1/58cad42137c5813452b6b86a/1489897232772-UT7GHG4U6UESHCTNPD5H/Screen+Shot+2017-03-17+at+1.25.58+AM.png" alt="Rumtek Monastery prayer hall interior" className="rounded-lg w-full h-40 object-cover cursor-pointer transition-transform transform group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -263,20 +299,25 @@ const RumtekMonasteryPage = () => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2 mb-4">
+            <Button size="sm" variant={activeMapFilter === 'accommodation' ? 'default' : 'outline'} onClick={() => setActiveMapFilter('accommodation')} className={activeMapFilter === 'accommodation' ? 'bg-gradient-monastery' : ''}>
+              <Hotel className="h-4 w-4 mr-2" /> Accommodation
+            </Button>
             <Button size="sm" variant={activeMapFilter === 'restaurants' ? 'default' : 'outline'} onClick={() => setActiveMapFilter('restaurants')} className={activeMapFilter === 'restaurants' ? 'bg-gradient-monastery' : ''}>
               <Utensils className="h-4 w-4 mr-2" /> Restaurants
+            </Button>
+            <Button size="sm" variant={activeMapFilter === 'parking' ? 'default' : 'outline'} onClick={() => setActiveMapFilter('parking')} className={activeMapFilter === 'parking' ? 'bg-gradient-monastery' : ''}>
+              <ParkingSquare className="h-4 w-4 mr-2" /> Parking
+            </Button>
+            <Button size="sm" variant={activeMapFilter === 'washrooms' ? 'default' : 'outline'} onClick={() => setActiveMapFilter('washrooms')} className={activeMapFilter === 'washrooms' ? 'bg-gradient-monastery' : ''}>
+              <PersonStanding className="h-4 w-4 mr-2" /> Washrooms
+            </Button>
+            <Button size="sm" variant={activeMapFilter === 'police' ? 'default' : 'outline'} onClick={() => setActiveMapFilter('police')} className={activeMapFilter === 'police' ? 'bg-gradient-monastery' : ''}>
+              <Siren className="h-4 w-4 mr-2" /> Police
             </Button>
             <Button size="sm" variant={activeMapFilter === 'hospitals' ? 'default' : 'outline'} onClick={() => setActiveMapFilter('hospitals')} className={activeMapFilter === 'hospitals' ? 'bg-gradient-monastery' : ''}>
               <HeartPulse className="h-4 w-4 mr-2" /> Hospitals
             </Button>
-            <Button size="sm" variant={activeMapFilter === 'police' ? 'default' : 'outline'} onClick={() => setActiveMapFilter('police')} className={activeMapFilter === 'police' ? 'bg-gradient-monastery' : ''}>
-              <Siren className="h-4 w-4 mr-2" /> Police Stations
-            </Button>
-            <Button size="sm" variant={activeMapFilter === 'washrooms' ? 'default' : 'outline'} onClick={() => setActiveMapFilter('washrooms')} className={activeMapFilter === 'washrooms' ? 'bg-gradient-monastery' : ''}>
-              <Hotel className="h-4 w-4 mr-2" /> Washrooms
-            </Button>
           </div>
-          {/* Replace the placeholder div with the new map component */}
           <NearbyServicesMap filter={activeMapFilter} />
         </CardContent>
       </Card>
