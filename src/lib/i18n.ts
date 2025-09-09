@@ -9,9 +9,8 @@ const resources = {
       // Navigation
       nav: {
         home: 'Home',
-        explore: 'Explore',
-        plan: 'Plan Journey',
         tours: 'Virtual Tours',
+        plan: 'Plan Journey',
         archive: 'Digital Archive',
         about: 'About Sikkim',
         community: 'Community',

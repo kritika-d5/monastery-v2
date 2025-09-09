@@ -22,10 +22,9 @@ export const Navigation = () => {
 
   const navigation = [
     { name: t('nav.home'), href: '/' },
-    { name: t('nav.explore'), href: '/explore' },
-    { name: t('nav.plan'), href: '/plan' },
-    { name: t('nav.tours'), href: '/tours' },
-    { name: t('nav.archive'), href: '/archive' },
+    { name: t('nav.tours'), href: '/virtual-tours' },
+    { name: t('nav.plan'), href: '/journey-planner' },
+    { name: t('nav.archive'), href: '/digital-archive' },
     { name: t('nav.about'), href: '/about-sikkim' },
     { name: t('nav.community'), href: '/community' },
   ];

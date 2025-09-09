@@ -9,9 +9,10 @@ export const Header = () => {
 
   const navigation = [
     { name: "Home", href: "/" },
-    { name: "Virtual Tours", href: "/explore" },
+    { name: "Virtual Tours", href: "/virtual-tours" },
     { name: "Journey Planner", href: "/journey-planner" },
     { name: "Digital Archive", href: "/digital-archive" },
+    { name: "About Sikkim", href: "/about-sikkim" },
   ];
 
   return (
