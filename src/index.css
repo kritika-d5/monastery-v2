@@ -2,120 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Authentic Sikkim Monastery Design System - Buddhist & Himalayan inspired */
-
 @layer base {
   :root {
-    /* Core monastery palette - Authentic Sikkim colors */
-    --background: 42 15% 97%; /* Soft monastery stone */
-    --foreground: 25 25% 15%; /* Deep monastery brown */
-
-    /* Monastery Gold - Primary brand color */
-    --primary: 32 35% 35%; /* Monastery Gold #8b5e34 */
-    --primary-foreground: 42 15% 97%;
-    --primary-glow: 42 65% 65%;
-
-    /* Tibetan Red - Sacred color */
-    --tibetan-red: 354 77% 59%; /* #e63946 */
-    --tibetan-red-foreground: 42 15% 97%;
-    --tibetan-red-glow: 354 77% 75%;
-
-    /* Himalayan Blue - Peaceful sky */
-    --himalayan-blue: 204 37% 44%; /* #457b9d */
-    --himalayan-blue-foreground: 42 15% 97%;
-    --himalayan-blue-glow: 204 57% 70%;
-
-    /* Supporting colors */
-    --card: 42 25% 96%;
-    --card-foreground: 25 25% 15%;
-
-    --secondary: 32 45% 85%;
-    --secondary-foreground: 25 35% 25%;
-
-    --muted: 35 20% 90%;
-    --muted-foreground: 25 15% 45%;
-
-    --accent: 354 25% 88%;
-    --accent-foreground: 25 35% 25%;
-
-    /* Monastery-inspired gradients */
-    --gradient-monastery: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-sacred: linear-gradient(135deg, hsl(var(--tibetan-red)), hsl(var(--tibetan-red-glow)));
-    --gradient-peaceful: linear-gradient(135deg, hsl(var(--himalayan-blue)), hsl(var(--himalayan-blue-glow)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--tibetan-red)), hsl(var(--himalayan-blue)));
+    /* Warm neutral background inspired by Sikkim monastery interiors */
+    --background: 43 25% 98%;
+    --foreground: 30 15% 15%;
+    --card: 43 25% 99%;
+    --card-foreground: 30 15% 15%;
+    --popover: 43 25% 99%;
+    --popover-foreground: 30 15% 15%;
+    
+    /* Monastery Gold - primary color inspired by golden Buddha statues */
+    --primary: 31 45% 38%;
+    --primary-foreground: 43 25% 98%;
+    --primary-glow: 31 55% 48%;
+    
+    /* Tibetan Red - sacred ceremonial color */
+    --tibetan-red: 350 85% 60%;
+    --tibetan-red-foreground: 43 25% 98%;
+    --tibetan-red-glow: 350 85% 70%;
+    
+    /* Himalayan Blue - serene mountain sky color */
+    --himalayan-blue: 200 50% 55%;
+    --himalayan-blue-foreground: 43 25% 98%;
+    --himalayan-blue-glow: 200 60% 65%;
+    
+    --secondary: 43 15% 94%;
+    --secondary-foreground: 30 15% 15%;
+    --muted: 43 15% 94%;
+    --muted-foreground: 30 15% 50%;
+    --accent: 43 15% 91%;
+    --accent-foreground: 30 15% 15%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 43 25% 98%;
+    --border: 43 15% 88%;
+    --input: 43 15% 88%;
+    --ring: 31 45% 38%;
+    --radius: 0.5rem;
+    
+    /* Custom gradients for monastery theme */
+    --gradient-monastery: linear-gradient(135deg, hsl(31 45% 38%), hsl(31 55% 48%));
+    --gradient-sacred: linear-gradient(135deg, hsl(350 85% 60%), hsl(350 85% 70%));
+    --gradient-peaceful: linear-gradient(135deg, hsl(200 50% 55%), hsl(200 60% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(31 45% 38%) 0%, hsl(350 85% 60%) 50%, hsl(200 50% 55%) 100%);
     
     /* Sacred shadows with monastery colors */
-    --shadow-monastery: 0 10px 30px -10px hsl(var(--primary) / 0.3);
-    --shadow-sacred: 0 0 40px hsl(var(--tibetan-red) / 0.2);
-    --shadow-peaceful: 0 8px 25px -8px hsl(var(--himalayan-blue) / 0.25);
-    --shadow-elevation: 0 20px 60px -15px hsl(var(--primary) / 0.4);
+    --shadow-monastery: 0 10px 30px -10px hsl(31 45% 38% / 0.3);
+    --shadow-sacred: 0 8px 25px -8px hsl(350 85% 60% / 0.25);
+    --shadow-peaceful: 0 6px 20px -6px hsl(200 50% 55% / 0.2);
+    --shadow-elevation: 0 4px 15px -4px hsl(30 15% 15% / 0.1);
+    
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    /* Animation & transitions */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --chart-1: 31 45% 38%;
+    --chart-2: 350 85% 60%;
+    --chart-3: 200 50% 55%;
+    --chart-4: 43 75% 65%;
+    --chart-5: 30 70% 50%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 42 15% 97%;
-
-    --border: 35 15% 85%;
-    --input: 35 15% 92%;
-    --ring: 32 35% 35%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 30 15% 8%;
+    --foreground: 43 25% 92%;
+    --card: 30 15% 10%;
+    --card-foreground: 43 25% 92%;
+    --popover: 30 15% 10%;
+    --popover-foreground: 43 25% 92%;
+    
+    /* Enhanced monastery colors for dark mode */
+    --primary: 31 55% 55%;
+    --primary-foreground: 30 15% 8%;
+    --primary-glow: 31 65% 65%;
+    
+    --tibetan-red: 350 75% 65%;
+    --tibetan-red-foreground: 30 15% 8%;
+    --tibetan-red-glow: 350 85% 75%;
+    
+    --himalayan-blue: 200 60% 65%;
+    --himalayan-blue-foreground: 30 15% 8%;
+    --himalayan-blue-glow: 200 70% 75%;
+    
+    --secondary: 30 15% 18%;
+    --secondary-foreground: 43 25% 92%;
+    --muted: 30 15% 18%;
+    --muted-foreground: 43 15% 65%;
+    --accent: 30 15% 22%;
+    --accent-foreground: 43 25% 92%;
+    --destructive: 0 75% 65%;
+    --destructive-foreground: 30 15% 8%;
+    --border: 30 15% 22%;
+    --input: 30 15% 22%;
+    --ring: 31 55% 55%;
+    
+    /* Adjusted gradients for dark mode */
+    --gradient-monastery: linear-gradient(135deg, hsl(31 55% 55%), hsl(31 65% 65%));
+    --gradient-sacred: linear-gradient(135deg, hsl(350 75% 65%), hsl(350 85% 75%));
+    --gradient-peaceful: linear-gradient(135deg, hsl(200 60% 65%), hsl(200 70% 75%));
+    --gradient-hero: linear-gradient(135deg, hsl(31 55% 55%) 0%, hsl(350 75% 65%) 50%, hsl(200 60% 65%) 100%);
+    
+    /* Enhanced shadows for dark mode */
+    --shadow-monastery: 0 10px 30px -10px hsl(31 55% 55% / 0.4);
+    --shadow-sacred: 0 8px 25px -8px hsl(350 75% 65% / 0.3);
+    --shadow-peaceful: 0 6px 20px -6px hsl(200 60% 65% / 0.25);
+    --shadow-elevation: 0 4px 15px -4px hsl(0 0% 0% / 0.3);
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --chart-1: 31 55% 55%;
+    --chart-2: 350 75% 65%;
+    --chart-3: 200 60% 65%;
+    --chart-4: 43 65% 55%;
+    --chart-5: 30 60% 45%;
   }
 }
 
@@ -123,8 +121,25 @@
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Custom monastery-themed scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/80;
   }
 }
