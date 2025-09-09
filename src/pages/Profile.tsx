@@ -49,12 +49,22 @@ const ProfilePage = () => {
         else setStories(storiesData || []);
 
         // Fetch bucket list
-        const { data: bucketData, error: bucketError } = await supabase
+          const { data: bucketData, error: bucketError } = await supabase
           .from('bucketlist')
-          .select('*, itineraries(*)')
+          .select(`
+            id, added_at,
+            itineraries (
+              id, title, description, duration_days, difficulty
+            )
+          `)
           .eq('profile_id', profileData?.id);
-        if (bucketError) console.error(bucketError);
-        else setBucketlist(bucketData || []);
+        
+        if (bucketError) {
+          console.error("Error fetching bucket list:", bucketError);
+        } else {
+          console.log("Bucket List Data:", bucketData); // Debugging
+          setBucketlist(bucketData || []);
+        }
 
         setLoading(false);
       }
@@ -148,8 +158,7 @@ const ProfilePage = () => {
       </Card>
 
       {/* Bucket List */}
-      {/* Bucket List */}
-      <Card>
+            <Card>
         <CardHeader>
           <CardTitle>Your Bucket List</CardTitle>
         </CardHeader>
@@ -159,7 +168,8 @@ const ProfilePage = () => {
           ) : (
             bucketlist.map((item) => (
               <div key={item.id} className="p-4 border rounded-md">
-                <p className="font-medium">{item.itineraries?.[0]?.name || "Unnamed Itinerary"}</p>
+                <p className="font-medium">{item.itineraries?.title || "Unnamed Itinerary"}</p>
+                <p className="text-sm text-muted-foreground">{item.itineraries?.description || "No description available."}</p>
                 <span className="text-xs text-muted-foreground">
                   {new Date(item.added_at).toLocaleDateString()}
                 </span>
