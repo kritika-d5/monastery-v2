@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
-import { Mountain, Menu, X, User, LogOut, Settings, MapPin } from 'lucide-react';
+import { Mountain, Menu, X, User, LogOut, Settings, MapPin, MessageSquareText } from 'lucide-react'; // Add MessageSquareText
 import { LanguageDropdown } from './LanguageDropdown';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -73,6 +73,15 @@ export const Navigation = () => {
               {item.name}
             </Link>
           ))}
+          {/* New Travel Companion link */}
+          <Link
+            to="/travel-companion"
+            className={`text-sm font-medium leading-6 transition-colors hover:text-primary ${
+              location.pathname === '/travel-companion' ? 'text-primary' : 'text-muted-foreground'
+            }`}
+          >
+            Travel Companion
+          </Link>
         </div>
 
         {/* Desktop actions */}
@@ -140,6 +149,16 @@ export const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            {/* New Travel Companion link */}
+            <Link
+              to="/travel-companion"
+              onClick={() => setIsMenuOpen(false)}
+              className={`block rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-accent ${
+                location.pathname === '/travel-companion' ? 'text-primary bg-accent' : 'text-muted-foreground'
+              }`}
+            >
+              Travel Companion
+            </Link>
             
             <div className="pt-4 border-t border-border">
               <div className="flex items-center justify-between mb-3">

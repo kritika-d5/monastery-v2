@@ -117,10 +117,12 @@ const CommunityPage = () => {
                 Share Your Story
               </Button>
             )}
-            <Button size="lg" variant="secondary" className="bg-white/90 text-monastery-gold hover:bg-white">
-              <MessageSquare className="mr-2 h-5 w-5" />
-              Ask a Question
-            </Button>
+            <Link to="/travel-companion">
+              <Button size="lg" variant="secondary" className="bg-white/90 text-monastery-gold hover:bg-white">
+                <MessageSquare className="mr-2 h-5 w-5" />
+                Ask a Question
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

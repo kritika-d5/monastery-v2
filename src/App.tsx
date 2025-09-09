@@ -20,7 +20,8 @@ import RumtekMonasteryPage from "./pages/monasteries/Rumtek";
 import AboutSikkim from "./pages/AboutSikkim";
 import CommunityPage from "./pages/Community";
 import ManuscriptDetail from "./pages/ManuscriptDetail";
-import ProfilePage from './pages/Profile'; // Add this line
+import ProfilePage from './pages/Profile';
+import TravelCompanion from './pages/TravelCompanion'; // Add this line
 
 const queryClient = new QueryClient();
 
@@ -45,7 +46,8 @@ const App = () => (
               <Route path="/digital-archive/:manuscriptId" element={<ManuscriptDetail />} />
               <Route path="/about-sikkim" element={<AboutSikkim />} />
               <Route path="/community" element={<CommunityPage />} />
-              <Route path="/profile" element={<ProfilePage />} /> {/* Add this line */}
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/travel-companion" element={<TravelCompanion />} /> {/* Add this line */}
               <Route path="/admin" element={<AdminDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

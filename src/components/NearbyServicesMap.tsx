@@ -20,6 +20,7 @@ interface Service {
   position: [number, number];
 }
 
+
 interface NearbyServicesMapProps {
   filter: string;
   services: Service[]; // Accept services as a prop
