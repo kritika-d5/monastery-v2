@@ -4,15 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { LanguageDropdown } from "@/components/LanguageDropdown";
 import { NearbyServicesMap } from "@/components/NearbyServicesMap";
-import { 
-  Globe, 
-  MapPin, 
-  Eye, 
+import RumtekVirtualTour from "@/components/RumtekVirtualTour"; // Correctly imported
+import {
+  Globe,
+  MapPin,
+  Eye,
   Camera,
   BookOpen,
   Headphones,
   Users,
-  Maximize,
   ShieldCheck,
   ShieldX,
   Star,
@@ -32,7 +32,7 @@ import {
   Sunset,
   Zap,
   ChevronRight,
-  ParkingSquare, 
+  ParkingSquare,
   PersonStanding
 } from "lucide-react";
 import rumtekImage from "@/assets/rumtek-monastery.jpg";
@@ -72,23 +72,12 @@ const getWeatherInfo = (code: number) => {
 };
 
 const RumtekMonasteryPage = () => {
-  const tourRef = useRef<HTMLDivElement>(null);
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState<any>(null);
   const [weatherLoading, setWeatherLoading] = useState(true);
   const [weatherError, setWeatherError] = useState(false);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
 
   const [activeMapFilter, setActiveMapFilter] = useState("accommodation");
-
-  const handleFullscreen = () => {
-    if (tourRef.current) {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      } else {
-        tourRef.current.requestFullscreen();
-      }
-    }
-  };
 
   const reviews = [
     {
@@ -216,23 +205,14 @@ const RumtekMonasteryPage = () => {
         {/* Left Column: 360 Tour & Details */}
         <div className="lg:col-span-2 space-y-8">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Eye className="h-6 w-6 text-monastery-gold" />
                 360° Virtual Tour
               </CardTitle>
-              <Button variant="outline" size="sm" onClick={handleFullscreen}>
-                <Maximize className="h-4 w-4 mr-2" />
-                Fullscreen
-              </Button>
             </CardHeader>
             <CardContent>
-              {/* Placeholder for 360 Tour */}
-              <div ref={tourRef} className="w-full h-96 bg-gray-200 flex items-center justify-center rounded-md">
-                <p className="text-muted-foreground">
-                  360° Tour Viewer Coming Soon
-                </p>
-              </div>
+              <RumtekVirtualTour />
             </CardContent>
           </Card>
 
@@ -407,6 +387,7 @@ const RumtekMonasteryPage = () => {
               ) : (
                 <>
                 {/* Today's weather */}
+                {todayWeather &&
                 <div className="flex items-center justify-between p-4 rounded-lg bg-muted/30">
                     <div className="flex items-center gap-4">
                         <div className="h-10 w-10 text-himalayan-blue my-2">{todayWeather.weatherInfo.icon}</div>
@@ -420,6 +401,7 @@ const RumtekMonasteryPage = () => {
                         <ChevronRight className="h-5 w-5" />
                     </Button>
                 </div>
+                }
 
                 {/* Other days' navigation */}
                 <div className="grid grid-cols-4 gap-2">
